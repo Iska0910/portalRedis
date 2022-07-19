@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Console\Commands\ClickCommand;
+use App\Console\Commands\ViewCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        ViewCommand::class,
+        ClickCommand::class
     ];
 
     /**
@@ -24,7 +27,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('redis:view:start')->hourly();
+
+        $schedule->command('redis:click:start')->hourly();
     }
 
     /**
