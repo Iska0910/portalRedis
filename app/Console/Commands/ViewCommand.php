@@ -74,7 +74,8 @@ class ViewCommand extends Command
                 $client->del($key);
             }
         }
-//        SELECT view_count FROM `tbl_banner` WHERE id in (297, 303, 364, 369, 386, 389, 423, 481, 500, 545, 554, 571, 578, 645, 670, 707, 708, 714);
+
+        $this->info('View count cleared!');
         return 0;
     }
 }
