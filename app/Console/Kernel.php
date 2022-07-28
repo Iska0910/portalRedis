@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\ClickCommand;
 use App\Console\Commands\ViewCommand;
+use App\Console\Commands\WeatherCurlCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -16,7 +17,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         ViewCommand::class,
-        ClickCommand::class
+        ClickCommand::class,
+        WeatherCurlCommand::class
     ];
 
     /**
@@ -30,6 +32,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('redis:view:start')->hourly();
 
         $schedule->command('redis:click:start')->hourly();
+
+//        $schedule->command('weather:get')->hourly();
     }
 
     /**
