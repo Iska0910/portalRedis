@@ -43,7 +43,7 @@ class WeatherCurlCommand extends Command
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
         foreach ($cities as $key => $item) {
-            curl_setopt($curl, CURLOPT_URL, "http://weather.loc/weather/$item");
+            curl_setopt($curl, CURLOPT_URL, "http://217.174.227.211:8889/weather/$item");
 
             $data = json_decode(curl_exec($curl));
 
