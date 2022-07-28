@@ -50,6 +50,11 @@ class WeatherCurlCommand extends Command
             $name = $data[1];
 
             $response = $data[0];
+
+            $path = "C:/OpenServer/domains/turkmenportal/protected/runtime/OpenWeather/$name";
+
+            file_put_contents($path, $response);
+
             $this->info($key + 1 . ") $item  => $name, success!");
         }
 
