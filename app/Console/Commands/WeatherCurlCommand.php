@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Http\Controllers\WeatherController;
 use Illuminate\Console\Command;
 
 class WeatherCurlCommand extends Command
@@ -39,19 +40,19 @@ class WeatherCurlCommand extends Command
     {
         $cities = array(1290, 1281, 1282, 1284, 1291, 25870, 25872, 25875, 25876, 25883, 25885, 11620, 11623, 1279);
 
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $weatherControler = new WeatherController();
 
         foreach ($cities as $key => $item) {
-            curl_setopt($curl, CURLOPT_URL, "http://217.174.227.211:8889/weather/$item");
 
-            $data = json_decode(curl_exec($curl));
+            $curl = $weatherControler->getJson($item);
+
+            $data = $curl;
 
             $name = $data[1];
 
             $response = $data[0];
 
-//            $path = "C:/OpenServer/domains/turkmenportal/protected/runtime/OpenWeather/$name";
+//            $path = "C:/OSPanel/domains/turkmenportal/protected/runtime/OpenWeather/$name";
             $path = "/var/www/turkmenportal.com/public_html/protected/runtime/OpenWeather/$name";
 
             file_put_contents($path, $response);
