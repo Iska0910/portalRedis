@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\City;
-use Illuminate\Http\Request;
+use App\Models\City;
 use Service\Weather\WeatherService;
 
 class WeatherController extends Controller
