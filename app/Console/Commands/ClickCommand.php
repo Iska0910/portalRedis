@@ -40,12 +40,21 @@ class ClickCommand extends Command
     public function handle()
     {
         $client = new Client();
+        $allKeys = $delKeys = 0;
 
         $keys = $client->keys('*');
+        $allKeys = count($keys);
 
-        $client->del($keys);
+        foreach ($keys as $key) {
+            if ( !(strpos($key, '_ru_') > 0 || strpos($key, '_tm_') > 0 || strpos($key, '_en_') > 0 || strpos($key, '_tr_') > 0) ) {
+                $client->del($key);
+                $delKeys++;
+            }
+        }
 
-        $this->info("Deleted all keys of Redis");
+
+
+        $this->info("Found $allKeys && deleted $delKeys keys!");
         return 0;
     }
 }
