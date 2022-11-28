@@ -91,8 +91,10 @@ class ViewCommand extends Command
                         ]);
                     }
 
-                    $client->del($key);
-
+                    if ($value < (int)$client->get($key))
+                        $client->set($key, ((int)$client->get($key)) - $value);
+                    else
+                        $client->del($key);
                 }
             }
         }
