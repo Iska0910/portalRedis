@@ -41,7 +41,7 @@ class ViewCommand extends Command
     public function handle()
     {
         $client = new Client();
-        $sum = 0;
+        $sum = $updates = 0;
 
         $tables = array(
             'blog'          =>  'tbl_blog_view',
@@ -94,15 +94,16 @@ class ViewCommand extends Command
                         ]);
                     }
 
-                    if ($value < (int)$client->get($key))
+                    if ($value < (int)$client->get($key)) {
                         $client->set($key, ((int)$client->get($key)) - $value);
-                    else
+                        $updates++;
+                    }else
                         $client->del($key);
                 }
             }
         }
 
-        $this->info("Fixed view counts of $sum keys!");
+        $this->info("Fixed view counts of $sum && updated $updates keys!");
 
         return 0;
     }
