@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Blog_View;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Predis\Client;
@@ -42,40 +43,62 @@ class ViewCommand extends Command
         $client = new Client();
 
         $tables = array(
-            'advert'    =>  'views', //+
-            'auto'    =>  'views',
-            'banner'    =>  'view_count', //+
-            'blog'    =>  'visited_count', //+
-            'catalog'    =>  'views',
-            'compositions'    =>  'views',
-            'estates'    =>  'views',
-            'work'    =>  'views',
+            'blog'          =>  'tbl_blog_view',
+            'catalog'       =>  'tbl_catalog_view',
+            'compositions'  =>  'tbl_compositions_view',
         );
 
-        $keys = $client->keys('view_count_*');
+        $table_id = array(
+            'blog'          =>  'blog_id',
+            'catalog'       =>  'catalog_id',
+            'compositions'  =>  'composition_id',
+        );
 
-        if (!empty($keys)) {
-            foreach ($keys as $key) {
+        $langs = [
+            1   => 'ru',
+            2   => 'tm',
+            3   => 'en',
+            4   => 'tr',
+        ];
 
-                $table = substr($key, 11, strpos($key, '_', 11) - 11);
+        foreach ($langs as $lang) {
 
-                $id = (int)substr($key, strpos($key, '_', 11) + 1);
+            $keys = $client->keys("view_count_$lang" . "_*");
 
-                $value = (int)$client->get($key);
+            if (!empty($keys)) {
 
-                $column = $tables[$table];
+                foreach ($keys as $key) {
+                    $table = substr($key, 14, strpos($key, '_', 14) - 14);
 
-                $db = DB::table('tbl_' . $table)
-                    ->where('id', $id)
-                    ->update([
-                        "$column" => DB::raw("$column + $value")
-                    ]);
+                    $id = (int)substr($key, strpos($key, '_', 14) + 1);
 
-                $client->del($key);
+                    $value = (int)$client->get($key);
+
+//                    $this->info("$table, $table_id[$table], $id, $lang, $value");
+
+                    if(DB::table($tables[$table])->where($table_id[$table], $id)->exists()){
+                        DB::table($tables[$table])
+                            ->where($table_id[$table], $id)
+                            ->update([
+                                $lang => DB::raw("$lang + $value")
+                            ]);
+                    } else {
+                        DB::table($tables[$table])->insert([
+                            $table_id[$table]   => $id,
+                            $lang               => $value,
+                            'created_at'        => now(),
+                            'updated_at'        => now()
+                        ]);
+                    }
+
+                    $client->del($key);
+
+                }
             }
         }
 
         $this->info('View count cleared!');
+
         return 0;
     }
 }
