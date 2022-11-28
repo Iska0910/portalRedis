@@ -41,6 +41,7 @@ class ViewCommand extends Command
     public function handle()
     {
         $client = new Client();
+        $sum = 0;
 
         $tables = array(
             'blog'          =>  'tbl_blog_view',
@@ -66,6 +67,8 @@ class ViewCommand extends Command
             $keys = $client->keys("view_count_$lang" . "_*");
 
             if (!empty($keys)) {
+
+                $sum += count($keys);
 
                 foreach ($keys as $key) {
                     $table = substr($key, 14, strpos($key, '_', 14) - 14);
@@ -99,7 +102,7 @@ class ViewCommand extends Command
             }
         }
 
-        $this->info('View count cleared!');
+        $this->info("Fixed view counts of $sum keys!");
 
         return 0;
     }
