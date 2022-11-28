@@ -31,8 +31,6 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('redis:view:start')->hourly();
 
-        $schedule->command('redis:click:start')->hourly();
-
         $schedule->command('weather:get')->hourly();
     }
 

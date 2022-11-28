@@ -13,7 +13,7 @@ class ClickCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'redis:click:start';
+    protected $signature = 'redis:clear';
 
     /**
      * The console command description.
@@ -41,33 +41,11 @@ class ClickCommand extends Command
     {
         $client = new Client();
 
-        $tables = array(
-            'banner'    =>  'click_count', //+
-        );
+        $keys = $client->keys('*');
 
-        $keys = $client->keys('click_count_*');
+        $client->del($keys);
 
-        if (!empty($keys)) {
-            foreach ($keys as $key) {
-
-                $table = substr($key, 12, strpos($key, '_', 12) - 12);
-
-                $id = (int)substr($key, strpos($key, '_', 12) + 1);
-
-                $value = (int)$client->get($key);
-
-                $column = $tables[$table];
-
-                $db = DB::table('tbl_' . $table)
-                    ->where('id', $id)
-                    ->update([
-                        "$column" => DB::raw("$column + $value")
-                    ]);
-
-                $client->del($key);
-            }
-        }
-//        SELECT view_count FROM `tbl_banner` WHERE id in (297, 303, 364, 369, 386, 389, 423, 481, 500, 545, 554, 571, 578, 645, 670, 707, 708, 714);
+        $this->info("Deleted all keys of Redis");
         return 0;
     }
 }
