@@ -41,7 +41,7 @@ class ViewCommand extends Command
     public function handle()
     {
         $client = new Client();
-        $sum = $updates = 0;
+        $sum = $updates = $allKeys = 0;
 
         $tables = array(
             'blog'          =>  'tbl_blog_view',
@@ -61,6 +61,8 @@ class ViewCommand extends Command
             3   => 'en',
             4   => 'tr',
         ];
+
+        $allKeys = count($client->keys('*'));
 
         foreach ($langs as $lang) {
 
@@ -103,7 +105,7 @@ class ViewCommand extends Command
             }
         }
 
-        $this->info("Fixed view counts of $sum && updated $updates keys!");
+        $this->info("Fixed $allKeys keys. Fixed view counts of $sum && updated $updates keys!");
 
         return 0;
     }
