@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Blog_View;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Predis\Client;

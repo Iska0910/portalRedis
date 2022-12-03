@@ -14,5 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('r.worker.detail', 1));
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('report/workers', 'ReportController@workersList')->name('r.workers.list');
+Route::get('report/worker/{id}', 'ReportController@workerDetail')->name('r.worker.detail');
