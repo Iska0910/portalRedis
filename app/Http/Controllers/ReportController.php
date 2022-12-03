@@ -8,33 +8,39 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
-    public function worker()
+    public function workersList()
     {
-        $data = [];
+
 
         $workers = Worker::query()
-            ->select('id', 'firstname', 'lastname')
+            ->select('id', 'firstname as name', 'lastname as surname')
             ->orderBy('lastname')
             ->orderBy('firstname')
             ->get();
 
+        return view('report.worker', compact('workers'));
 
-        foreach ($workers as $item => $worker){
+    }
 
-            $data[] = [
-                'id'            => $worker->id,
-                'name'          => $worker->firstname,
-                'surnename'     => $worker->lastname,
-                'post_count'    => Blog::query()
-                                        ->where('worker_ru', $worker->id)
-//                                        ->orWhere('worker_tm', $worker->id)
-//                                        ->orWhere('worker_en', $worker->id)
-                                        ->count(),
-            ];
+    public function workerDetail($id)
+    {
+        $worker = (int)$id;
 
-            var_dump($data[$item]);
-        }
-        dd($data);
+        $blogs = Blog::query()
+            ->where('worker_ru',  $worker)
+            ->orWhere('worker_tm', '=', $worker)
+            ->orWhere('worker_en', '=', $worker)
+            ->select('id', 'title_ru','title_tm', 'visited_count')
+            ->with('viewsDetail')
+            ->orderBy('date_added', 'desc')
+            ->paginate(15);
 
+        $count = Blog::query()
+            ->where('worker_ru',  $worker)
+            ->orWhere('worker_tm', '=', $worker)
+            ->orWhere('worker_en', '=', $worker)
+            ->count();
+
+        return view('report.worker-detail', compact('blogs', 'count'));
     }
 }
