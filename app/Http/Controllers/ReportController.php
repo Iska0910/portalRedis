@@ -22,25 +22,37 @@ class ReportController extends Controller
 
     }
 
-    public function workerDetail($id)
+    public function workerDetail(Request $request, $id)
     {
-        $worker = (int)$id;
+
+        $worker = Worker::query()
+            ->find((int)$id);
+
+
 
         $blogs = Blog::query()
-            ->where('worker_ru',  $worker)
-            ->orWhere('worker_tm', '=', $worker)
-            ->orWhere('worker_en', '=', $worker)
-            ->select('id', 'title_ru','title_tm', 'visited_count')
+            ->when($request->start, function ($q, $v){
+                $q->where('date_added', '>=', $v);
+            })
+            ->when($request->end, function ($q, $v){
+                $q->where('date_added', '<=', $v);
+            })
+            ->where('worker_ru',  $worker->id)
+            ->orWhere('worker_tm', '=', $worker->id)
+            ->orWhere('worker_en', '=', $worker->id)
+            ->select('id', 'title_ru','title_tm', 'visited_count as view_count', 'status', 'date_added as created_at')
             ->with('viewsDetail')
             ->orderBy('date_added', 'desc')
             ->paginate(15);
 
         $count = Blog::query()
-            ->where('worker_ru',  $worker)
-            ->orWhere('worker_tm', '=', $worker)
-            ->orWhere('worker_en', '=', $worker)
+            ->where('worker_ru',  $worker->id)
+            ->orWhere('worker_tm', '=', $worker->id)
+            ->orWhere('worker_en', '=', $worker->id)
             ->count();
 
-        return view('report.worker-detail', compact('blogs', 'count'));
+        session()->flashInput($request->input());
+
+        return view('report.worker-detail', compact('blogs', 'count', 'worker'));
     }
 }

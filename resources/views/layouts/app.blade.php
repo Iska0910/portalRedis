@@ -20,6 +20,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Fontawesome -->
+    <link href="{{ asset('css/fontawesome/all.min.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -82,5 +85,7 @@
     </div>
 
     <link rel="stylesheet" href="{{ asset('js/bootstrap.min.js') }}">
+    <script src="{{ asset('js/fontawesome/all.min.js') }}" rel="stylesheet"></script>
+
 </body>
 </html>
