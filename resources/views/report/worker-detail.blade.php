@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+
+    <div>
+        <a href="{{route('r.workers.list')}}">
+            <i class="fa fa-arrow-left"></i>
+        </a>
+    </div>
+
     <h4 style="text-align: center">
         <div class="row">
             <div class="col"><span style="font-weight: bold">Worker:</span> {{$worker->firstname}} {{$worker->lastname}}</div>

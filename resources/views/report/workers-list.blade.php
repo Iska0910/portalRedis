@@ -10,16 +10,22 @@
                         <th scope="col">№</th>
                         <th scope="col">Ady</th>
                         <th scope="col">Familiyasy</th>
+                        <th scope="col">
+                            <i style="color: #49e309" class="fa fa-link"></i>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($workers as $worker)
                         <tr>
-                            <a href="#">
-                                <th scope="row">{{$loop->iteration}}</th>
-                                <td>{{$worker->name}}</td>
-                                <td>{{$worker->surname}}</td>
-                            </a>
+                            <th scope="row">{{$loop->iteration}}</th>
+                            <td>{{$worker->name}}</td>
+                            <td>{{$worker->surname}}</td>
+                            <td>
+                                <a href="{{route('r.worker.detail', $worker->id)}}">
+                                    <i style="color: #49e309" class="fa fa-external-link-alt"></i>
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
