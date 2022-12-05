@@ -4,19 +4,24 @@
     <h4 style="text-align: center">
         <div class="row">
             <div class="col"><span style="font-weight: bold">Worker:</span> {{$worker->firstname}} {{$worker->lastname}}</div>
-            <div class="col"><sapn style="font-weight: bold">Total count:</sapn>{{$count}}</div>
+            <div class="col"><sapn style="font-weight: bold">Total count:</sapn>{{$blogs->total()}}</div>
         </div>
     </h4>
 
     <div class="d-flex justify-content-end">
-        <div class="col-6" style="border: 1px solid red; padding: 20px 30px; border-radius: 10px; margin: 20px 0;">
-            <form action="{{route('r.worker.detail', $worker->id)}}" method="GET">
+        <div class="col-6" style="border: 1px solid #a71f1f; padding: 20px 30px; border-radius: 10px; margin: 20px 0;">
+            <form action="" method="GET">
                 <div class="row">
                     <div class="col">
                         <input class="form-control" type="date" name="start" value="{{old('start')}}">
                     </div>
                     <div class="col">
                         <input class="form-control" type="date" name="end" value="{{old('end')}}">
+                    </div>
+                    <div class="col">
+                        <button class="form-control btn btn-primary" type="clear" name="clear">
+                            <i  class="fa fa-eraser"></i>
+                        </button>
                     </div>
                     <div class="col">
                         <button class="form-control btn btn-primary" type="submit" name="submit">
@@ -103,6 +108,6 @@
     </table>
 
     <div class="d-flex justify-content-center" style="margin-top: 50px;">
-        {{ $blogs->links() }}
+        {{ $blogs->withQueryString()->links() }}
     </div>
 @endsection
