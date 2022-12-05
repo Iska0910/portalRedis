@@ -19,7 +19,7 @@ class ReportController extends Controller
             ->orderBy('firstname')
             ->get();
 
-        return view('report.worker', compact('workers'));
+        return view('report.workers-list', compact('workers'));
 
     }
 
