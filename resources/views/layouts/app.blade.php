@@ -87,5 +87,7 @@
     <link rel="stylesheet" href="{{ asset('js/bootstrap.min.js') }}">
     <script src="{{ asset('js/fontawesome/all.min.js') }}" rel="stylesheet"></script>
 
+    @stack('input-claer')
+
 </body>
 </html>
