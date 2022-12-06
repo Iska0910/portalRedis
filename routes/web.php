@@ -1,6 +1,6 @@
 <?php
 
-//use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,9 +18,11 @@ Route::get('/', function () {
     return redirect(route('r.workers.list'));
 });
 
-//Auth::routes();
+Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('report/workers', 'ReportController@workersList')->name('r.workers.list');
-Route::get('report/worker/{id}', 'ReportController@workerDetail')->name('r.worker.detail');
+Route::get('blog/workers', 'BlogStatisticsController@workersList')->name('r.workers.list');
+Route::get('blog/worker/{id}', 'BlogStatisticsController@workerDetail')->name('r.worker.detail');
+Route::get('blog/worker/{id}', 'BlogStatisticsController@workerDetail')->name('r.worker.detail');
+Route::get('blog/worker/{id}', 'BlogStatisticsController@workerDetail')->name('r.worker.detail');

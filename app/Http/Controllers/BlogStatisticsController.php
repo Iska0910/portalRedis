@@ -7,7 +7,7 @@ use App\Models\Worker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
-class ReportController extends Controller
+class BlogStatisticsController extends Controller
 {
     public function workersList()
     {

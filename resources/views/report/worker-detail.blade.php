@@ -4,7 +4,7 @@
 
     <div>
         <a href="{{route('r.workers.list')}}">
-            <i class="fa fa-arrow-left"></i>
+            <i class="fa fa-arrow-left fa-2x"></i>
         </a>
     </div>
 
@@ -20,15 +20,10 @@
             <form action="" method="GET">
                 <div class="row">
                     <div class="col">
-                        <input class="form-control" type="date" name="start" value="{{old('start')}}">
+                        <input class="form-control" type="date" name="start" value="{{old('start')}}" id="Begin-date">
                     </div>
                     <div class="col">
-                        <input class="form-control" type="date" name="end" value="{{old('end')}}">
-                    </div>
-                    <div class="col">
-                        <button class="form-control btn btn-primary" type="clear" name="clear">
-                            <i  class="fa fa-eraser"></i>
-                        </button>
+                        <input class="form-control" type="date" name="end" value="{{old('end')}}" id="End-date">
                     </div>
                     <div class="col">
                         <button class="form-control btn btn-primary" type="submit" name="submit">
