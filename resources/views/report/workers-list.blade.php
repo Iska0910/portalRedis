@@ -22,7 +22,7 @@
                             <td>{{$worker->name}}</td>
                             <td>{{$worker->surname}}</td>
                             <td>
-                                <a href="{{route('r.worker.detail', $worker->id)}}">
+                                <a href="{{$routes[$worker->id]}}">
                                     <i style="color: #49e309" class="fa fa-external-link-alt"></i>
                                 </a>
                             </td>

@@ -19,7 +19,11 @@ class BlogStatisticsController extends Controller
             ->orderBy('firstname')
             ->get();
 
-        return view('report.workers-list', compact('workers'));
+        $routes = [];
+        foreach ($workers as $worker){
+            $routes[$worker->id] = route('r.worker.detail', $worker->id);
+        }
+        return view('report.workers-list', compact('workers', 'routes'));
 
     }
 
