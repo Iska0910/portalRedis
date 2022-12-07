@@ -3,15 +3,15 @@
 @section('content')
 
     <div>
-        <a href="{{route('r.workers.list')}}">
-            <i class="fa fa-arrow-left fa-2x"></i>
+        <a href="{{$workersListRoute}}">
+            <i style="color: #a71f1f" class="fa fa-arrow-left fa-2x"></i>
         </a>
     </div>
 
     <h4 style="text-align: center">
         <div class="row">
             <div class="col"><span style="font-weight: bold">Worker:</span> {{$worker->firstname}} {{$worker->lastname}}</div>
-            <div class="col"><sapn style="font-weight: bold">Total count:</sapn>{{$blogs->total()}}</div>
+            <div class="col"><sapn style="font-weight: bold">Total count:</sapn>{{$datas->total()}}</div>
         </div>
     </h4>
 
@@ -61,44 +61,44 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($blogs as $key => $blog)
+            @foreach($datas as $key => $data)
                 <tr>
-                    <th scope="row">{{$blogs->firstItem() + $key}}</th>
-                    <td>{{$blog->id}}</td>
-                    @if($blog->title_ru)
-                        <td>{{$blog->title_ru}}</td>
+                    <th scope="row">{{$datas->firstItem() + $key}}</th>
+                    <td>{{$data->id}}</td>
+                    @if($data->title_ru)
+                        <td>{{$data->title_ru}}</td>
                     @else
-                        <td>{{$blog->title_tm}}</td>
+                        <td>{{$data->title_tm}}</td>
                     @endif
                     <td>
-                        @if($blog->status)
+                        @if($data->status)
                             <i style="color: green" class="fa fa-check"></i>
                         @else
                             <i style="color: red" class="fa fa-times"></i>
                         @endif
                     </td>
-                    <td>{{$blog->view_count}}</td>
-                    @if(isset($blog->viewsDetail))
-                        <td>{{$blog->viewsDetail->ru}}</td>
-                        <td>{{$blog->viewsDetail->tm}}</td>
-                        <td>{{$blog->viewsDetail->en}}</td>
+                    <td>{{$data->view_count}}</td>
+                    @if(isset($data->viewsDetail))
+                        <td>{{$data->viewsDetail->ru}}</td>
+                        <td>{{$data->viewsDetail->tm}}</td>
+                        <td>{{$data->viewsDetail->en}}</td>
                     @else
                         <td></td>
                         <td></td>
                         <td></td>
                     @endif
-                    <td>{{$blog->created_at->format('M d Y')}}</td>
+                    <td>{{$data->created_at->format('M d Y')}}</td>
                     <td>
-                        @if($blog->title_ru != "")
-                            <a href="https://turkmenportal.com/blog/{{$blog->id}}" target="_blank">
+                        @if($data->title_ru != "")
+                            <a href="https://turkmenportal.com/blog/{{$data->id}}" target="_blank">
                                 <i style="color: #49e309" class="fa fa-external-link-alt"></i>
                             </a>
-                        @elseif($blog->title_tm != "")
-                            <a href="https://turkmenportal.com/tm/blog/{{$blog->id}}" target="_blank">
+                        @elseif($data->title_tm != "")
+                            <a href="https://turkmenportal.com/tm/blog/{{$data->id}}" target="_blank">
                                 <i style="color: #49e309" class="fa fa-external-link-alt"></i>
                             </a>
                         @else
-                            <a href="https://turkmenportal.com/en/blog/{{$blog->id}}" target="_blank">
+                            <a href="https://turkmenportal.com/en/blog/{{$data->id}}" target="_blank">
                                 <i style="color: #49e309" class="fa fa-external-link-alt"></i>
                             </a>
                         @endif
@@ -110,6 +110,6 @@
     </table>
 
     <div class="d-flex justify-content-center" style="margin-top: 50px;">
-        {{ $blogs->withQueryString()->links() }}
+        {{ $datas->withQueryString()->links() }}
     </div>
 @endsection
