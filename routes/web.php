@@ -15,14 +15,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect(route('r.workers.list'));
+    return redirect(route('home'));
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', function (){
+    return view ('home');
+})->name('home');
 
-Route::get('blog/workers', 'BlogStatisticsController@workersList')->name('r.workers.list');
-Route::get('blog/worker/{id}', 'BlogStatisticsController@workerDetail')->name('r.worker.detail');
-Route::get('blog/worker/{id}', 'BlogStatisticsController@workerDetail')->name('r.worker.detail');
-Route::get('blog/worker/{id}', 'BlogStatisticsController@workerDetail')->name('r.worker.detail');
+Route::get('blog/workers', 'BlogStatisticsController@workersList')->name('r.blog.workers.list');
+Route::get('blog/worker/{id}', 'BlogStatisticsController@workerDetail')->name('r.blog.worker.detail');
+
+Route::get('composition/workers', 'CompositionStatisticsController@workersList')->name('r.comp.workers.list');
+Route::get('composition/worker/{id}', 'CompositionStatisticsController@workerDetail')->name('r.comp.worker.detail');

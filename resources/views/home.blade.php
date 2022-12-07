@@ -1,23 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
+    <div class="row">
+        <div class="col">
+            <a href="{{route('r.blog.workers.list')}}" class="home-links">
+                <div style="background-color: rgba(144, 199, 237, 0.56); height: 200px; border-radius: 25px;" class="d-flex justify-content-center home-container">
+                    <div class="d-flex align-items-center" style="font-size: 18px; font-weight: bold; color: #ffff;">
+                        Blog
+                    </div>
                 </div>
-            </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="{{route('r.comp.workers.list')}}" class="home-links">
+                <div style="background-color: rgba(144, 199, 237, 0.56); height: 200px; border-radius: 25px;" class="d-flex justify-content-center home-container">
+                    <div class="d-flex align-items-center" style="font-size: 18px; font-weight: bold; color: #ffff;">
+                        Compositions
+                    </div>
+                </div>
+            </a>
         </div>
     </div>
-</div>
 @endsection
