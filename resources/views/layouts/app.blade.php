@@ -81,6 +81,9 @@
             <div class="container">
                 @yield('content')
             </div>
+            <div class="container-fluid">
+                @yield('category-content')
+            </div>
         </main>
     </div>
 
