@@ -49,19 +49,31 @@
         <div class="col-1 d-flex justify-content-center">{{$data->views}}</div>
         <div class="col-2" style="border-left: 2px solid rgb(222, 226, 230); border-right: 2px solid rgb(222, 226, 230);">
             <div class="row">
-                <div style="text-align: center; border-right: 1px solid rgb(222, 226, 230);" class="col">{{$data->worker_ru}}</div>
+                <div style="text-align: center; border-right: 1px solid rgb(222, 226, 230);" class="col">
+                    @if(isset($worker[$data->worker_ru]))
+                    {{$worker[$data->worker_ru]}}
+                    @endif
+                </div>
                 <div style="text-align: center;" class="col">@if(isset($data->viewsDetail)) {{$data->viewsDetail->ru}} @endif</div>
             </div>
         </div>
         <div class="col-2">
             <div class="row">
-                <div style="text-align: center; border-right: 1px solid rgb(222, 226, 230);" class="col">{{$data->worker_tm}}</div>
+                <div style="text-align: center; border-right: 1px solid rgb(222, 226, 230);" class="col">
+                    @if(isset($worker[$data->worker_tm]))
+                    {{$worker[$data->worker_tm]}}
+                    @endif
+                </div>
                 <div style="text-align: center;" class="col">@if(isset($data->viewsDetail)) {{$data->viewsDetail->tm}} @endif</div>
             </div>
         </div>
         <div class="col-2" style="border-left: 2px solid rgb(222, 226, 230); border-right: 2px solid rgb(222, 226, 230);">
             <div class="row">
-                <div style="text-align: center; border-right: 1px solid rgb(222, 226, 230);" class="col">{{$data->worker_en}}</div>
+                <div style="text-align: center; border-right: 1px solid rgb(222, 226, 230);" class="col">
+                    @if(isset($worker[$data->worker_en]))
+                    {{$worker[$data->worker_en]}}
+                    @endif
+                </div>
                 <div style="text-align: center;" class="col">@if(isset($data->viewsDetail)) {{$data->viewsDetail->en}} @endif</div>
             </div>
         </div>

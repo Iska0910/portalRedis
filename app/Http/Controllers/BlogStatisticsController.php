@@ -90,6 +90,16 @@ class BlogStatisticsController extends Controller
             ->orderByDesc('date_added')
             ->paginate(20);
 
-        return view('blog.category-detail', compact('datas', 'category'));
+        $workers = Worker::query()
+            ->select('id', 'nickname')
+            ->get();
+
+        $worker = [];
+
+        foreach ($workers as $item){
+            $worker[$item->id] = $item->nickname;
+        }
+//        dd($worker);
+        return view('blog.category-detail', compact('datas', 'category', 'worker'));
     }
 }

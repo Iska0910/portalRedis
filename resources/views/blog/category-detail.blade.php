@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
-@section('content')
+@section('category-content')
 
-    <div>
+    <div style="margin-left: 30px;">
         <a href="#">
             <i style="color: #a71f1f" class="fa fa-arrow-left fa-2x"></i>
         </a>
     </div>
 
-    @include('layouts.category-table')
+    <div class="m-3">
+        @include('layouts.category-table')
+    </div>
 @endsection
