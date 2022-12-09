@@ -11,7 +11,6 @@ class CompositionStatisticsController extends Controller
 {
     public function workersList()
     {
-
         $workers = Worker::query()
             ->select('id', 'firstname as name', 'lastname as surname')
             ->orderBy('lastname')
@@ -19,11 +18,12 @@ class CompositionStatisticsController extends Controller
             ->get();
 
         $routes = [];
-        foreach ($workers as $worker){
-            $routes[$worker->id] = route('r.comp.worker.detail', $worker->id);
-        }
-        return view('report.workers-list', compact('workers', 'routes'));
 
+        foreach ($workers as $worker){
+            $routes[$worker->id] = route('comp.worker.detail', $worker->id);
+        }
+
+        return view('compositions.workers', compact('workers', 'routes'));
     }
 
     public function workerDetail(Request $request, $id)
@@ -31,7 +31,7 @@ class CompositionStatisticsController extends Controller
         $worker = Worker::query()
             ->find((int)$id);
 
-        $workersListRoute = route('r.comp.workers.list');
+        $workersListRoute = route('comp.workers');
 
         $begin = Carbon::parse($request->start)->startOfDay();
         $end = Carbon::parse($request->end)->endOfDay();
@@ -55,6 +55,6 @@ class CompositionStatisticsController extends Controller
 
         session()->flashInput($request->input());
 
-        return view('report.worker-detail', compact('datas', 'worker', 'workersListRoute'));
+        return view('compositions.worker-detail', compact('datas', 'worker', 'workersListRoute'));
     }
 }

@@ -24,8 +24,22 @@ Route::get('/home', function (){
     return view ('home');
 })->name('home');
 
-Route::get('blog/workers', 'BlogStatisticsController@workersList')->name('r.blog.workers.list');
-Route::get('blog/worker/{id}', 'BlogStatisticsController@workerDetail')->name('r.blog.worker.detail');
+Route::prefix('blog')->name('blog.')->group(function () {
+    Route::get('workers', 'BlogStatisticsController@workersList')->name('workers');
+    Route::get('worker/{worker}', 'BlogStatisticsController@workerDetail')->name('worker.detail');
+    Route::get('category/{category}', 'CategoryStatisticsController@categoriyByBlog')->name('category.dateail');
+});
 
-Route::get('composition/workers', 'CompositionStatisticsController@workersList')->name('r.comp.workers.list');
-Route::get('composition/worker/{id}', 'CompositionStatisticsController@workerDetail')->name('r.comp.worker.detail');
+Route::prefix('compositions')->name('comp.')->group(function (){
+    Route::get('workers', 'CompositionStatisticsController@workersList')->name('workers');
+    Route::get('worker/{id}', 'CompositionStatisticsController@workerDetail')->name('worker.detail');
+    Route::get('category/{category}', 'CategoryStatisticsController@categoriyByComposition')->name('category.dateail');
+});
+
+Route::get('categories', 'CategoryStatisticsController@categoriesList')->name('categories');
+
+
+
+
+
+
