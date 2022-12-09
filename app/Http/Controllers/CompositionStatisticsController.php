@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Composition;
 use App\Models\Worker;
 use Illuminate\Http\Request;
@@ -11,7 +12,6 @@ class CompositionStatisticsController extends Controller
 {
     public function workersList()
     {
-
         $workers = Worker::query()
             ->select('id', 'firstname as name', 'lastname as surname')
             ->orderBy('lastname')
@@ -19,11 +19,12 @@ class CompositionStatisticsController extends Controller
             ->get();
 
         $routes = [];
-        foreach ($workers as $worker){
-            $routes[$worker->id] = route('r.comp.worker.detail', $worker->id);
-        }
-        return view('report.workers-list', compact('workers', 'routes'));
 
+        foreach ($workers as $worker){
+            $routes[$worker->id] = route('comp.worker.detail', $worker->id);
+        }
+
+        return view('compositions.workers', compact('workers', 'routes'));
     }
 
     public function workerDetail(Request $request, $id)
@@ -31,7 +32,7 @@ class CompositionStatisticsController extends Controller
         $worker = Worker::query()
             ->find((int)$id);
 
-        $workersListRoute = route('r.comp.workers.list');
+        $workersListRoute = route('comp.workers');
 
         $begin = Carbon::parse($request->start)->startOfDay();
         $end = Carbon::parse($request->end)->endOfDay();
@@ -55,6 +56,28 @@ class CompositionStatisticsController extends Controller
 
         session()->flashInput($request->input());
 
-        return view('report.worker-detail', compact('datas', 'worker', 'workersListRoute'));
+        return view('compositions.worker-detail', compact('datas', 'worker', 'workersListRoute'));
+    }
+
+    public function categoriesList()
+    {
+        $categories = Category::query()
+            ->where('status', 1)
+            ->where('parent_id', '!=', null)
+            ->where('parent_id', 355)
+            ->orderByDesc('parent_id')
+            ->orderBy('name_ru', 'asc')
+            ->select('id', 'name_ru as name', 'parent_id')
+            ->with('getParent:id,name_ru')
+            ->get();
+
+        $controller = 'comp';
+
+        return view('blog.categories', compact('categories', 'controller'));
+    }
+
+    public function categoryDetail()
+    {
+
     }
 }

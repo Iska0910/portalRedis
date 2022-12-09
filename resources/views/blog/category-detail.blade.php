@@ -1,0 +1,81 @@
+@extends('layouts.app')
+
+@section('content')
+
+    <div>
+        <a href="#">
+            <i style="color: #a71f1f" class="fa fa-arrow-left fa-2x"></i>
+        </a>
+    </div>
+
+    <div class="row d-flex align-items-center" style="font-weight: bold; margin-top: 20px; border-bottom: 2px solid #dee2e6; border-top: 1px solid #dee2e6; padding: 10px 0;">
+        <div class="col-1">№</div>
+        <div class="col-1 d-flex justify-content-center">Blog Id</div>
+        <div class="col-2 d-flex justify-content-center">Title</div>
+        <div class="col-1 d-flex justify-content-center">Status</div>
+        <div class="col-1 d-flex justify-content-center">Views</div>
+        <div class="col-2" style="border-left: 1px solid rgb(222, 226, 230); border-right: 1px solid rgb(222, 226, 230);">
+            <div class="d-flex justify-content-center mb-1">
+                <img src="{{asset('storage/ru.png')}}">
+            </div>
+            <div class="row">
+                <div style="text-align: center;" class="col">Worker</div>
+                <div style="text-align: center;" class="col">View</div>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="d-flex justify-content-center mb-1">
+                <img src="{{asset('storage/tm.png')}}">
+            </div>
+            <div class="row">
+                <div style="text-align: center;" class="col">Worker</div>
+                <div style="text-align: center;" class="col">View</div>
+            </div>
+        </div>
+        <div class="col-2" style="border-left: 1px solid rgb(222, 226, 230); border-right: 1px solid rgb(222, 226, 230);">
+            <div class="d-flex justify-content-center mb-1">
+                <img src="{{asset('storage/en.png')}}">
+            </div>
+            <div class="row">
+                <div style="text-align: center;" class="col">Worker</div>
+                <div style="text-align: center;" class="col">View</div>
+            </div>
+        </div>
+    </div>
+
+    @foreach($datas as $data)
+        <div class="row d-flex align-items-center" style="border-bottom: 1px solid #dee2e6; padding: 10px 0;">
+            <div style="font-weight: bold;" class="col-1">{{$loop->iteration}}</div>
+            <div class="col-1 d-flex justify-content-center">{{$data->id}}</div>
+            <div class="col-2 d-flex justify-content-center">
+                @if($data->title_ru){{$data->title_ru}}@else{{$data->title_tm}}@endif
+            </div>
+            <div class="col-1 d-flex justify-content-center">
+                @if($data->status)
+                    <i style="color: green" class="fa fa-check"></i>
+                @else
+                    <i style="color: red" class="fa fa-times"></i>
+                @endif
+            </div>
+            <div class="col-1 d-flex justify-content-center">{{$data->views}}</div>
+            <div class="col-2">
+                <div class="row">
+                    <div style="text-align: center; border-right: 1px solid rgb(222, 226, 230);" class="col">{{$data->worker_ru}}</div>
+                    <div style="text-align: center;" class="col">@if(isset($data->viewsDetail)) {{$data->viewsDetail->ru}} @endif</div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="row">
+                    <div style="text-align: center; border-right: 1px solid rgb(222, 226, 230);" class="col">{{$data->worker_tm}}</div>
+                    <div style="text-align: center;" class="col">@if(isset($data->viewsDetail)) {{$data->viewsDetail->tm}} @endif</div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="row">
+                    <div style="text-align: center; border-right: 1px solid rgb(222, 226, 230);" class="col">{{$data->worker_en}}</div>
+                    <div style="text-align: center;" class="col">@if(isset($data->viewsDetail)) {{$data->viewsDetail->en}} @endif</div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+@endsection
