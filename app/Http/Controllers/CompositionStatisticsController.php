@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Composition;
 use App\Models\Worker;
 use Illuminate\Http\Request;
@@ -56,5 +57,27 @@ class CompositionStatisticsController extends Controller
         session()->flashInput($request->input());
 
         return view('compositions.worker-detail', compact('datas', 'worker', 'workersListRoute'));
+    }
+
+    public function categoriesList()
+    {
+        $categories = Category::query()
+            ->where('status', 1)
+            ->where('parent_id', '!=', null)
+            ->where('parent_id', 355)
+            ->orderByDesc('parent_id')
+            ->orderBy('name_ru', 'asc')
+            ->select('id', 'name_ru as name', 'parent_id')
+            ->with('getParent:id,name_ru')
+            ->get();
+
+        $controller = 'comp';
+
+        return view('blog.categories', compact('categories', 'controller'));
+    }
+
+    public function categoryDetail()
+    {
+
     }
 }

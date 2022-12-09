@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect(route('home'));
+    return redirect(route('blog.categories'));
 });
 
 Auth::routes();
@@ -27,16 +27,16 @@ Route::get('/home', function (){
 Route::prefix('blog')->name('blog.')->group(function () {
     Route::get('workers', 'BlogStatisticsController@workersList')->name('workers');
     Route::get('worker/{worker}', 'BlogStatisticsController@workerDetail')->name('worker.detail');
-    Route::get('category/{category}', 'CategoryStatisticsController@categoriyByBlog')->name('category.dateail');
+    Route::get('categories', 'BlogStatisticsController@categoriesList')->name('categories');
+    Route::get('category/{category}', 'BlogStatisticsController@categoryDetail')->name('category.dateail');
 });
 
 Route::prefix('compositions')->name('comp.')->group(function (){
     Route::get('workers', 'CompositionStatisticsController@workersList')->name('workers');
     Route::get('worker/{id}', 'CompositionStatisticsController@workerDetail')->name('worker.detail');
-    Route::get('category/{category}', 'CategoryStatisticsController@categoriyByComposition')->name('category.dateail');
+    Route::get('categories', 'CompositionStatisticsController@categoriesList')->name('categories');
+    Route::get('category/{category}', 'CompositionStatisticsController@categoryDetail')->name('category.dateail');
 });
-
-Route::get('categories', 'CategoryStatisticsController@categoriesList')->name('categories');
 
 
 
