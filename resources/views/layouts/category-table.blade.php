@@ -52,6 +52,8 @@
                 <div style="text-align: center; border-right: 1px solid rgb(222, 226, 230);" class="col">
                     @if(isset($worker[$data->worker_ru]))
                     {{$worker[$data->worker_ru]}}
+                    @else
+                        Didn't select
                     @endif
                 </div>
                 <div style="text-align: center;" class="col">@if(isset($data->viewsDetail)) {{$data->viewsDetail->ru}} @endif</div>
@@ -62,6 +64,8 @@
                 <div style="text-align: center; border-right: 1px solid rgb(222, 226, 230);" class="col">
                     @if(isset($worker[$data->worker_tm]))
                     {{$worker[$data->worker_tm]}}
+                    @else
+                        Didn't select
                     @endif
                 </div>
                 <div style="text-align: center;" class="col">@if(isset($data->viewsDetail)) {{$data->viewsDetail->tm}} @endif</div>
@@ -72,6 +76,8 @@
                 <div style="text-align: center; border-right: 1px solid rgb(222, 226, 230);" class="col">
                     @if(isset($worker[$data->worker_en]))
                     {{$worker[$data->worker_en]}}
+                    @else
+                        Didn't select
                     @endif
                 </div>
                 <div style="text-align: center;" class="col">@if(isset($data->viewsDetail)) {{$data->viewsDetail->en}} @endif</div>
