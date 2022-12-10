@@ -106,4 +106,10 @@ class BlogStatisticsController extends Controller
 
         return view('blog.category-detail', compact('datas', 'category', 'worker', 'url', 'backUrl'));
     }
+
+    public function guide()
+    {
+        $controller = 'blog';
+        return view('guide', compact('controller'));
+    }
 }

@@ -73,7 +73,7 @@ class CompositionStatisticsController extends Controller
 
         $controller = 'comp';
 
-        return view('blog.categories', compact('categories', 'controller'));
+        return view('compositions.categories', compact('categories', 'controller'));
     }
 
     public function categoryDetail(Category $category)
@@ -100,5 +100,11 @@ class CompositionStatisticsController extends Controller
         $backUrl = route('comp.categories');
 
         return view('compositions.category-detail', compact('datas', 'category', 'worker', 'url', 'backUrl'));
+    }
+
+    public function guide()
+    {
+        $controller = 'comp';
+        return view('guide', compact('controller'));
     }
 }
