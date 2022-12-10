@@ -73,11 +73,38 @@ class CompositionStatisticsController extends Controller
 
         $controller = 'comp';
 
-        return view('blog.categories', compact('categories', 'controller'));
+        return view('compositions.categories', compact('categories', 'controller'));
     }
 
-    public function categoryDetail()
+    public function categoryDetail(Category $category)
     {
+        $datas = Composition::query()
+            ->where('category_id', $category->id)
+            ->select('id', 'title_ru', 'title_tm', 'views', 'status', 'date_added as created_at', 'worker_ru', 'worker_tm', 'worker_en')
+            ->with('viewsDetail')
+            ->orderByDesc('date_added')
+            ->paginate(20);
 
+        $workers = Worker::query()
+            ->select('id', 'nickname')
+            ->get();
+
+        $worker = [];
+
+        foreach ($workers as $item){
+            $worker[$item->id] = $item->nickname;
+        }
+
+        $url = "https://turkmenportal.com/compositions/";
+
+        $backUrl = route('comp.categories');
+
+        return view('compositions.category-detail', compact('datas', 'category', 'worker', 'url', 'backUrl'));
+    }
+
+    public function guide()
+    {
+        $controller = 'comp';
+        return view('guide', compact('controller'));
     }
 }

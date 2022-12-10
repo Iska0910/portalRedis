@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect(route('blog.categories'));
+    return redirect(route('home'));
 });
 
 Auth::routes();
@@ -25,6 +25,7 @@ Route::get('/home', function (){
 })->name('home');
 
 Route::prefix('blog')->name('blog.')->group(function () {
+    Route::get('guide', 'BlogStatisticsController@guide')->name('guide');
     Route::get('workers', 'BlogStatisticsController@workersList')->name('workers');
     Route::get('worker/{worker}', 'BlogStatisticsController@workerDetail')->name('worker.detail');
     Route::get('categories', 'BlogStatisticsController@categoriesList')->name('categories');
@@ -32,6 +33,7 @@ Route::prefix('blog')->name('blog.')->group(function () {
 });
 
 Route::prefix('compositions')->name('comp.')->group(function (){
+    Route::get('guide', 'CompositionStatisticsController@guide')->name('guide');
     Route::get('workers', 'CompositionStatisticsController@workersList')->name('workers');
     Route::get('worker/{id}', 'CompositionStatisticsController@workerDetail')->name('worker.detail');
     Route::get('categories', 'CompositionStatisticsController@categoriesList')->name('categories');
