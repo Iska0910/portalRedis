@@ -99,7 +99,11 @@ class BlogStatisticsController extends Controller
         foreach ($workers as $item){
             $worker[$item->id] = $item->nickname;
         }
-//        dd($worker);
-        return view('blog.category-detail', compact('datas', 'category', 'worker'));
+
+        $url = "https://turkmenportal.com/blog/";
+
+        $backUrl = route('blog.categories');
+
+        return view('blog.category-detail', compact('datas', 'category', 'worker', 'url', 'backUrl'));
     }
 }
