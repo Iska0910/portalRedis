@@ -34,22 +34,23 @@
 </div>
 
 @foreach($datas as $data)
-    <div class="row d-flex align-items-center" style="border-bottom: 0.5px solid #dee2e6; padding: 10px 0;">
-        <div style="font-weight: bold;" class="col-1">{{$loop->iteration}}</div>
+{{--    <div class="row d-flex align-items-center" style="border-bottom: 0.5px solid #dee2e6; padding: 10px 0;">--}}
+    <div class="row " style="border-bottom: 0.5px solid #dee2e6; padding: 10px 0;">
+        <div style="font-weight: bold;" class="col-1 d-flex align-items-center">{{$loop->iteration}}</div>
         <div class="col-2 d-flex justify-content-center" style="text-align: center">
             @if($data->title_ru){{$data->title_ru}}@else{{$data->title_tm}}@endif
         </div>
-        <div class="col-1 d-flex justify-content-center">
+        <div class="col-1 d-flex justify-content-center align-items-center">
             @if($data->status)
                 <i style="color: green" class="fa fa-check"></i>
             @else
                 <i style="color: red" class="fa fa-times"></i>
             @endif
         </div>
-        <div class="col-1 d-flex justify-content-center">{{$data->views}}</div>
+        <div class="col-1 d-flex justify-content-center align-items-center">{{$data->views}}</div>
         <div class="col-2" style="border-left: 3px solid rgb(222, 226, 230); border-right: 3px solid rgb(222, 226, 230);">
-            <div class="row">
-                <div style="text-align: center; border-right: 0.5px solid rgb(222, 226, 230);" class="col-8">
+            <div class="row h-100 d-flex align-items-center" style="background-color: rgb(239 34 56 / 26%)">
+                <div style="text-align: center; border-right: 0.5px solid #000000;" class="col-8">
                     @if(isset($worker[$data->worker_ru]))
                     {{$worker[$data->worker_ru]}}
                     @else
@@ -60,8 +61,8 @@
             </div>
         </div>
         <div class="col-2">
-            <div class="row">
-                <div style="text-align: center; border-right: 0.5px solid rgb(222, 226, 230);" class="col-8">
+            <div style="background-color: rgb(139 191 142 / 61%);" class="row h-100 d-flex align-items-center">
+                <div style="text-align: center; border-right: 0.5px solid #000000;" class="col-8">
                     @if(isset($worker[$data->worker_tm]))
                     {{$worker[$data->worker_tm]}}
                     @else
@@ -72,8 +73,8 @@
             </div>
         </div>
         <div class="col-2" style="border-left: 3px solid rgb(222, 226, 230); border-right: 3px solid rgb(222, 226, 230);">
-            <div class="row">
-                <div style="text-align: center; border-right: 0.5px solid rgb(222, 226, 230);" class="col-8">
+            <div style="background-color: rgb(122 144 236 / 62%);" class="row h-100 d-flex align-items-center">
+                <div style="text-align: center; border-right: 0.5px solid #000000;" class="col-8">
                     @if(isset($worker[$data->worker_en]))
                     {{$worker[$data->worker_en]}}
                     @else
@@ -84,9 +85,11 @@
             </div>
         </div>
         <div class="col-1 d-flex justify-content-center">
-            <a href="{{$url . $data->id}}" target="_blank">
-                <i style="color: #49e309" class="fa fa-external-link-alt"></i>
-            </a>
+            <div class="d-flex align-items-center">
+                <a href="{{$url . $data->id}}" target="_blank">
+                    <i style="color: #49e309" class="fa fa-external-link-alt"></i>
+                </a>
+            </div>
         </div>
     </div>
 @endforeach
