@@ -11,4 +11,8 @@
     <div class="m-3">
         @include('layouts.category-table')
     </div>
+
+    <div class="d-flex justify-content-center" style="margin-top: 50px;">
+        {{ $datas->withQueryString()->links() }}
+    </div>
 @endsection
