@@ -56,7 +56,9 @@ class CompositionStatisticsController extends Controller
 
         session()->flashInput($request->input());
 
-        return view('compositions.worker-detail', compact('datas', 'worker', 'workersListRoute'));
+        $url = "compositions";
+
+        return view('compositions.worker-detail', compact('datas', 'worker', 'workersListRoute', 'url'));
     }
 
     public function categoriesList()

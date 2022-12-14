@@ -57,7 +57,9 @@ class BlogStatisticsController extends Controller
 
         session()->flashInput($request->input());
 
-        return view('blog.worker-detail', compact('datas', 'worker', 'workersListRoute'));
+        $url = "blog";
+
+        return view('blog.worker-detail', compact('datas', 'worker', 'workersListRoute', 'url'));
     }
 
     public function categoriesList()
