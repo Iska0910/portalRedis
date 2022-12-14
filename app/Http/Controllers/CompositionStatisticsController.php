@@ -78,9 +78,18 @@ class CompositionStatisticsController extends Controller
         return view('compositions.categories', compact('categories', 'controller'));
     }
 
-    public function categoryDetail(Category $category)
+    public function categoryDetail(Request $request, Category $category)
     {
+        $begin = Carbon::parse($request->start)->startOfDay();
+        $end = Carbon::parse($request->end)->endOfDay();
+
         $datas = Composition::query()
+            ->when($request->start, function ($q) use ($begin){
+                $q->whereDate('date_added', '>=', $begin);
+            })
+            ->when($request->end, function ($q) use ($end){
+                $q->whereDate('date_added', '<=', $end);
+            })
             ->where('category_id', $category->id)
             ->select('id', 'title_ru', 'title_tm', 'views', 'status', 'date_added as created_at', 'worker_ru', 'worker_tm', 'worker_en')
             ->with('viewsDetail')

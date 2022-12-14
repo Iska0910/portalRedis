@@ -8,6 +8,8 @@
         </a>
     </div>
 
+    @include('layouts.filter-form')
+
     <div class="m-3">
         @include('layouts.category-table')
     </div>
