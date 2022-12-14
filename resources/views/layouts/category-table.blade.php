@@ -85,9 +85,11 @@
             </div>
         </div>
         <div class="col-1 d-flex justify-content-center">
-            <a href="{{$url . $data->id}}" target="_blank">
-                <i style="color: #49e309" class="fa fa-external-link-alt"></i>
-            </a>
+            <div class="d-flex align-items-center">
+                <a href="{{$url . $data->id}}" target="_blank">
+                    <i style="color: #49e309" class="fa fa-external-link-alt"></i>
+                </a>
+            </div>
         </div>
     </div>
 @endforeach
