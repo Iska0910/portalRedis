@@ -55,15 +55,15 @@
             <td style="vertical-align: middle">{{$data->created_at->format('M d Y')}}</td>
             <td style="vertical-align: middle">
                 @if($data->title_ru != "")
-                    <a href="https://turkmenportal.com/blog/{{$data->id}}" target="_blank">
+                    <a href="https://turkmenportal.com/{{$url}}/{{$data->id}}" target="_blank">
                         <i style="color: #49e309" class="fa fa-external-link-alt"></i>
                     </a>
                 @elseif($data->title_tm != "")
-                    <a href="https://turkmenportal.com/tm/blog/{{$data->id}}" target="_blank">
+                    <a href="https://turkmenportal.com/tm/{{$url}}/{{$data->id}}" target="_blank">
                         <i style="color: #49e309" class="fa fa-external-link-alt"></i>
                     </a>
                 @else
-                    <a href="https://turkmenportal.com/en/blog/{{$data->id}}" target="_blank">
+                    <a href="https://turkmenportal.com/en/{{$url}}/{{$data->id}}" target="_blank">
                         <i style="color: #49e309" class="fa fa-external-link-alt"></i>
                     </a>
                 @endif

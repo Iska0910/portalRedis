@@ -1,7 +1,6 @@
 <div class="row d-flex align-items-center" style="font-weight: bold; margin-top: 20px; border-bottom: 3px solid #dee2e6; border-top: 3px solid #dee2e6; padding: 10px 0;">
     <div class="col-1">№</div>
     <div class="col-2 d-flex justify-content-center">Title</div>
-    <div class="col-1 d-flex justify-content-center">Status</div>
     <div class="col-1 d-flex justify-content-center">Views</div>
     <div class="col-2" style="border-left: 3px solid rgb(222, 226, 230); border-right: 3px solid rgb(222, 226, 230);">
         <div class="d-flex justify-content-center mb-1">
@@ -30,7 +29,15 @@
             <div style="text-align: center;" class="col-4"><i style="color: #528dd7" class="fa fa-eye"></i></div>
         </div>
     </div>
-    <div class="col-1 d-flex justify-content-center"><i style="color: #49e309" class="fa fa-link"></i></div>
+    <div class="col-1 d-flex justify-content-center">Date</div>
+    <div class="col-1 d-flex justify-content-center">
+        <div class="col-6">
+            <i style="color: #49e309" class="fa fa-toggle-on"></i>
+        </div>
+        <div class="col-6">
+            <i style="color: #49e309" class="fa fa-link"></i>
+        </div>
+    </div>
 </div>
 
 @foreach($datas as $data)
@@ -39,13 +46,6 @@
         <div style="font-weight: bold;" class="col-1 d-flex align-items-center">{{$loop->iteration}}</div>
         <div class="col-2 d-flex justify-content-center" style="text-align: center">
             @if($data->title_ru){{$data->title_ru}}@else{{$data->title_tm}}@endif
-        </div>
-        <div class="col-1 d-flex justify-content-center align-items-center">
-            @if($data->status)
-                <i style="color: green" class="fa fa-check"></i>
-            @else
-                <i style="color: red" class="fa fa-times"></i>
-            @endif
         </div>
         <div class="col-1 d-flex justify-content-center align-items-center">{{$data->views}}</div>
         <div class="col-2" style="border-left: 3px solid rgb(222, 226, 230); border-right: 3px solid rgb(222, 226, 230);">
@@ -84,11 +84,26 @@
                 <div style="text-align: center;" class="col-4">@if(isset($data->viewsDetail)) {{$data->viewsDetail->en}} @endif</div>
             </div>
         </div>
+        <div style="font-weight: bold;" class="col-1 d-flex align-items-center">
+            <div class="d-flex justify-content-center">
+                {{$data->created_at->format('M d Y')}}
+            </div>
+        </div>
+
         <div class="col-1 d-flex justify-content-center">
             <div class="d-flex align-items-center">
-                <a href="{{$url . $data->id}}" target="_blank">
-                    <i style="color: #49e309" class="fa fa-external-link-alt"></i>
-                </a>
+                <div class="col-6">
+                    @if($data->status)
+                        <i style="color: green" class="fa fa-check"></i>
+                    @else
+                        <i style="color: red" class="fa fa-times"></i>
+                    @endif
+                </div>
+                <div class="col-6">
+                    <a href="{{$url . $data->id}}" target="_blank">
+                        <i style="color: #49e309" class="fa fa-external-link-alt"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

@@ -57,7 +57,9 @@ class BlogStatisticsController extends Controller
 
         session()->flashInput($request->input());
 
-        return view('blog.worker-detail', compact('datas', 'worker', 'workersListRoute'));
+        $url = "blog";
+
+        return view('blog.worker-detail', compact('datas', 'worker', 'workersListRoute', 'url'));
     }
 
     public function categoriesList()
@@ -81,9 +83,18 @@ class BlogStatisticsController extends Controller
         return view('blog.categories', compact('categories', 'controller'));
     }
 
-    public function categoryDetail(Category $category)
+    public function categoryDetail(Request $request, Category $category)
     {
+        $begin = Carbon::parse($request->start)->startOfDay();
+        $end = Carbon::parse($request->end)->endOfDay();
+
         $datas = Blog::query()
+            ->when($request->start, function ($q) use ($begin){
+                $q->whereDate('date_added', '>=', $begin);
+            })
+            ->when($request->end, function ($q) use ($end){
+                $q->whereDate('date_added', '<=', $end);
+            })
             ->where('category_id', $category->id)
             ->select('id', 'title_ru', 'title_tm', 'visited_count as views', 'status', 'date_added as created_at', 'worker_ru', 'worker_tm', 'worker_en')
             ->with('viewsDetail')
