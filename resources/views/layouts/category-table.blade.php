@@ -86,7 +86,7 @@
         </div>
         <div style="text-align: center;" class="col-1 d-flex align-items-center">
             <div class="d-flex justify-content-center">
-                {{$data->created_at->format('M d Y h:m')}}
+                {{$data->created_at->format('M d Y, H:m')}}
             </div>
         </div>
 
