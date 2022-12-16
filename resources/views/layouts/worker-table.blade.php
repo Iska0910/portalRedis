@@ -52,7 +52,7 @@
                 <td></td>
                 <td></td>
             @endif
-            <td style="vertical-align: middle">{{$data->created_at->format('M d Y')}}</td>
+            <td style="vertical-align: middle">{{$data->created_at->format('M d Y, H:m')}}</td>
             <td style="vertical-align: middle">
                 @if($data->title_ru != "")
                     <a href="https://turkmenportal.com/{{$url}}/{{$data->id}}" target="_blank">

@@ -53,7 +53,7 @@ class BlogStatisticsController extends Controller
             ->select('id', 'title_ru','title_tm', 'visited_count as view_count', 'status', 'date_added as created_at')
             ->with('viewsDetail')
             ->orderBy('date_added', 'desc')
-            ->paginate(15);
+            ->paginate(20);
 
         session()->flashInput($request->input());
 
@@ -88,6 +88,7 @@ class BlogStatisticsController extends Controller
         $begin = Carbon::parse($request->start)->startOfDay();
         $end = Carbon::parse($request->end)->endOfDay();
 
+        // get posts
         $datas = Blog::query()
             ->when($request->start, function ($q) use ($begin){
                 $q->whereDate('date_added', '>=', $begin);
@@ -96,10 +97,26 @@ class BlogStatisticsController extends Controller
                 $q->whereDate('date_added', '<=', $end);
             })
             ->where('category_id', $category->id)
-            ->select('id', 'title_ru', 'title_tm', 'visited_count as views', 'status', 'date_added as created_at', 'worker_ru', 'worker_tm', 'worker_en')
+            ->select('id', 'title_ru', 'title_tm', 'title_en', 'visited_count as views', 'status', 'date_added as created_at', 'worker_ru', 'worker_tm', 'worker_en')
             ->with('viewsDetail')
             ->orderByDesc('date_added')
-            ->paginate(20);
+            ->get();
+
+        // counts the number of posts
+        $posts = [
+            'tm'    => 0,
+            'ru'    => 0,
+            'en'    => 0
+        ];
+
+        foreach ($datas as $data){
+            $posts['tm'] += ($data->title_tm != null);
+            $posts['ru'] += ($data->title_ru != null);
+            $posts['en'] += ($data->title_en != null);
+        }
+
+        // paginate dates
+        $datas = $datas->paginate(20);
 
         $workers = Worker::query()
             ->select('id', 'nickname')
@@ -115,7 +132,7 @@ class BlogStatisticsController extends Controller
 
         $backUrl = route('blog.categories');
 
-        return view('blog.category-detail', compact('datas', 'category', 'worker', 'url', 'backUrl'));
+        return view('blog.category-detail', compact('datas', 'category', 'worker', 'url', 'backUrl', 'category', 'posts'));
     }
 
     public function guide()
