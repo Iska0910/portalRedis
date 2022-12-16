@@ -43,7 +43,7 @@
 @foreach($datas as $key => $data)
 {{--    <div class="row d-flex align-items-center" style="border-bottom: 0.5px solid #dee2e6; padding: 10px 0;">--}}
     <div class="row " style="border-bottom: 0.5px solid #dee2e6; padding: 10px 0;">
-        <div style="font-weight: bold;" class="col-1 d-flex align-items-center">{{$datas->firstItem() + $key}}</div>
+        <div style="font-weight: bold;" class="col-1 d-flex align-items-center">{{$datas->firstItem() + $loop->index}}</div>
         <div class="col-2 d-flex justify-content-center" style="text-align: center">
             @if($data->title_ru){{$data->title_ru}}@else{{$data->title_tm}}@endif
         </div>

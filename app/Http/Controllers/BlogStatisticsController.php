@@ -53,7 +53,7 @@ class BlogStatisticsController extends Controller
             ->select('id', 'title_ru','title_tm', 'visited_count as view_count', 'status', 'date_added as created_at')
             ->with('viewsDetail')
             ->orderBy('date_added', 'desc')
-            ->paginate(15);
+            ->paginate(20);
 
         session()->flashInput($request->input());
 
