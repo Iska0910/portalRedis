@@ -29,6 +29,27 @@
         </div>
     </h4>
 
+    <h4 style="text-align: center; margin-bottom: 20px;">
+        <div class="row" >
+            <div class="col-4">
+                <div class="">
+                    <span style="font-weight: bold">RU:</span> {{$posts['ru']}}
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="">
+                    <span style="font-weight: bold">TM:</span> {{$posts['tm']}}
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="">
+                    <span style="font-weight: bold">EN:</span> {{$posts['en']}}
+                </div>
+            </div>
+
+        </div>
+    </h4>
+
     @include('layouts.filter-form')
 
 

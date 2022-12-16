@@ -83,6 +83,7 @@ class CompositionStatisticsController extends Controller
         $begin = Carbon::parse($request->start)->startOfDay();
         $end = Carbon::parse($request->end)->endOfDay();
 
+        // get posts
         $datas = Composition::query()
             ->when($request->start, function ($q) use ($begin){
                 $q->whereDate('date_added', '>=', $begin);
@@ -94,7 +95,23 @@ class CompositionStatisticsController extends Controller
             ->select('id', 'title_ru', 'title_tm', 'views', 'status', 'date_added as created_at', 'worker_ru', 'worker_tm', 'worker_en')
             ->with('viewsDetail')
             ->orderByDesc('date_added')
-            ->paginate(20);
+            ->get();
+
+        // counts the number of posts
+        $posts = [
+            'tm'    => 0,
+            'ru'    => 0,
+            'en'    => 0
+        ];
+
+        foreach ($datas as $data){
+            $posts['tm'] += ($data->title_tm != null);
+            $posts['ru'] += ($data->title_ru != null);
+            $posts['en'] += ($data->title_en != null);
+        }
+
+        // paginate dates
+        $datas = $datas->paginate(20);
 
         $workers = Worker::query()
             ->select('id', 'nickname')
@@ -110,7 +127,7 @@ class CompositionStatisticsController extends Controller
 
         $backUrl = route('comp.categories');
 
-        return view('compositions.category-detail', compact('datas', 'category', 'worker', 'url', 'backUrl'));
+        return view('compositions.category-detail', compact('datas', 'category', 'worker', 'url', 'backUrl', 'posts'));
     }
 
     public function guide()
