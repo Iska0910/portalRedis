@@ -8,6 +8,27 @@
         </a>
     </div>
 
+    <h4 style="text-align: center; margin-bottom: 20px;">
+        <div class="row" >
+            <div class="col-4">
+                <div class="col"><span style="font-weight: bold">Table:</span> Blog</div>
+            </div>
+            <div class="col-4">
+                <div class="col"><span style="font-weight: bold">Category:</span>
+                    @if($category->name_ru != '')
+                        {{$category->name_ru}}
+                    @else
+                        {{$category->name_tm}}
+                    @endif
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="col"><sapn style="font-weight: bold">Total count:</sapn>{{$datas->total()}}</div>
+            </div>
+
+        </div>
+    </h4>
+
     @include('layouts.filter-form')
 
 

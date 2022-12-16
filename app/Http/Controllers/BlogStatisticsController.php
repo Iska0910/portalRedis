@@ -115,7 +115,7 @@ class BlogStatisticsController extends Controller
 
         $backUrl = route('blog.categories');
 
-        return view('blog.category-detail', compact('datas', 'category', 'worker', 'url', 'backUrl'));
+        return view('blog.category-detail', compact('datas', 'category', 'worker', 'url', 'backUrl', 'category'));
     }
 
     public function guide()
