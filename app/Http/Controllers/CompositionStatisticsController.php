@@ -92,7 +92,7 @@ class CompositionStatisticsController extends Controller
                 $q->whereDate('date_added', '<=', $end);
             })
             ->where('category_id', $category->id)
-            ->select('id', 'title_ru', 'title_tm', 'title_en', 'views', 'status', 'date_added as created_at', 'worker_ru', 'worker_tm', 'worker_en')
+            ->select('id', 'title_ru', 'title_tm', 'title_en', 'views', 'status', 'date_added as created_at', 'worker_ru', 'worker_tm', 'worker_en', 'researcher_tm', 'researcher_ru', 'researcher_en')
             ->with('viewsDetail')
             ->orderByDesc('date_added')
             ->get();
