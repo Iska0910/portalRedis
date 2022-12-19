@@ -82,6 +82,10 @@ class CompositionStatisticsController extends Controller
     {
         $begin = Carbon::parse($request->start)->startOfDay();
         $end = Carbon::parse($request->end)->endOfDay();
+        $worker_id = null;
+
+        if ($request->worker > 0)
+            $worker_id = $request->worker;
 
         // get posts
         $datas = Composition::query()
@@ -92,6 +96,13 @@ class CompositionStatisticsController extends Controller
                 $q->whereDate('date_added', '<=', $end);
             })
             ->where('category_id', $category->id)
+            ->when($worker_id, function ($query, $v){
+                $query->where(function ($q) use ($v){
+                    $q->where('worker_ru', $v)
+                        ->orWhere('worker_tm', $v)
+                        ->orWhere('worker_en', $v);
+                });
+            })
             ->select('id', 'title_ru', 'title_tm', 'title_en', 'views', 'status', 'date_added as created_at', 'worker_ru', 'worker_tm', 'worker_en', 'researcher_tm', 'researcher_ru', 'researcher_en')
             ->with('viewsDetail')
             ->orderByDesc('date_added')
@@ -126,6 +137,8 @@ class CompositionStatisticsController extends Controller
         $url = "https://turkmenportal.com/compositions/";
 
         $backUrl = route('comp.categories');
+
+        session()->flashInput($request->input());
 
         return view('compositions.category-detail', compact('datas', 'category', 'worker', 'url', 'backUrl', 'posts'));
     }

@@ -50,7 +50,7 @@
         </div>
     </h4>
 
-    @include('layouts.filter-form')
+    @include('layouts.category-filter-form')
 
 
     <div class="m-3">
