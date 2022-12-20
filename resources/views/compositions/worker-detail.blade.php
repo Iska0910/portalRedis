@@ -8,41 +8,9 @@
         </a>
     </div>
 
-    <h4 style="text-align: center">
-        <div class="row">
-            <div class="col-4">
-                <div class="col"><span style="font-weight: bold">Table:</span> Composition</div>
-            </div>
-            <div class="col-4">
-                <div class="col"><span style="font-weight: bold">Worker:</span> {{$worker->firstname}} {{$worker->lastname}}</div>
-            </div>
-            <div class="col-4">
-                <div class="col"><sapn style="font-weight: bold">Total count:</sapn>{{$datas->total()}}</div>
-            </div>
+    @include('layouts.worker-by-category-table', ['tableName' => 'Composition'])
 
-        </div>
-    </h4>
-
-
-    <div class="d-flex justify-content-end">
-        <div class="col-6" style="border: 1px solid #a71f1f; padding: 20px 30px; border-radius: 10px; margin: 20px 0;">
-            <form action="" method="GET">
-                <div class="row">
-                    <div class="col">
-                        <input class="form-control" type="date" name="start" value="{{old('start')}}" id="Begin-date">
-                    </div>
-                    <div class="col">
-                        <input class="form-control" type="date" name="end" value="{{old('end')}}" id="End-date">
-                    </div>
-                    <div class="col">
-                        <button class="form-control btn btn-primary" type="submit" name="submit">
-                            <i  class="fa fa-sort-amount-up-alt"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+    @include('layouts.filter-form')
 
     @include('layouts.worker-table')
 

@@ -50,18 +50,57 @@ class BlogStatisticsController extends Controller
                     ->orwhere('worker_tm', '=', $worker->id)
                     ->orWhere('worker_en', '=', $worker->id);
             })
-            ->select('id', 'title_ru','title_tm', 'visited_count as view_count', 'status', 'date_added as created_at')
+            ->select('id', 'title_ru','title_tm', 'category_id', 'visited_count as view_count', 'status', 'date_added as created_at')
             ->with('viewsDetail')
             ->orderBy('date_added', 'desc')
-            ->paginate(20);
+            ->get();
+
+
+        $categories['category'] = $this->getCategories();
+
+        foreach ($datas as $data){
+
+            if (isset($categories['count'][$data->category_id]))
+                $categories['count'][$data->category_id]++;
+            else
+                $categories['count'][$data->category_id] = 1;
+
+        }
+
+        $datas = $datas->paginate(20);
 
         session()->flashInput($request->input());
 
         $url = "blog";
 
-        return view('blog.worker-detail', compact('datas', 'worker', 'workersListRoute', 'url'));
+        return view('blog.worker-detail', compact('datas', 'worker', 'workersListRoute', 'url', 'categories'));
     }
 
+    protected function getCategories()
+    {
+        $categories = Category::query()
+            ->where('status', 1)
+            ->where('parent_id', '!=', null)
+            ->where(function($q){
+                $q->Where('parent_id', 282)
+                    ->orWhere('parent_id', 338)
+                    ->orWhere('parent_id', 430);
+            })
+            ->select('id', 'name_ru', 'name_tm')
+            ->orderBy('name_ru', 'asc')
+            ->get();
+
+        $data = [];
+//        eaecef
+        foreach ($categories as $category){
+            if ($category->name_ru != null)
+                $data[$category->id] = $category->name_ru;
+            else
+                $data[$category->id] = $category->name_tm;
+        }
+
+        return $data;
+    }
     public function categoriesList()
     {
         $categories = Category::query()
