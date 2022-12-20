@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="col-4">
-                <div class="col"><sapn style="font-weight: bold">Total count:</sapn>{{$datas->total()}}</div>
+                <div class="col"><sapn style="font-weight: bold">Total count:</sapn> {{$datas->total()}}</div>
             </div>
 
         </div>
@@ -33,17 +33,26 @@
         <div class="row" >
             <div class="col-4">
                 <div class="">
-                    <span style="font-weight: bold">RU:</span> {{$posts['ru']}}
+                    <img src="{{asset('storage/ru.png')}}">
+                    <span>
+                        {{$posts['ru']}}
+                    </span>
                 </div>
             </div>
             <div class="col-4">
                 <div class="">
-                    <span style="font-weight: bold">TM:</span> {{$posts['tm']}}
+                    <img src="{{asset('storage/tm.png')}}">
+                    <span>
+                        {{$posts['tm']}}
+                    </span>
                 </div>
             </div>
             <div class="col-4">
                 <div class="">
-                    <span style="font-weight: bold">EN:</span> {{$posts['en']}}
+                    <img src="{{asset('storage/en.png')}}">
+                    <span>
+                        {{$posts['en']}}
+                    </span>
                 </div>
             </div>
 
