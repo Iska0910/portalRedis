@@ -5,6 +5,7 @@
         <th scope="col">Id</th>
         <th scope="col">Titile</th>
         <th scope="col">Status</th>
+        <th scope="col">Category</th>
         <th scope="col">
             <i style="color: #528dd7" class="fa fa-eye"></i>
         </th>
@@ -41,6 +42,9 @@
                 @else
                     <i style="color: red" class="fa fa-times"></i>
                 @endif
+            </td>
+            <td style="vertical-align: middle">
+                {{$categories['category'][$data->category_id]}}
             </td>
             <td style="vertical-align: middle">{{$data->view_count}}</td>
             @if(isset($data->viewsDetail))

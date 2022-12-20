@@ -8,21 +8,7 @@
         </a>
     </div>
 
-    <h4 style="text-align: center">
-        <div class="row">
-            <div class="col-4">
-                <div class="col"><span style="font-weight: bold">Table:</span> Composition</div>
-            </div>
-            <div class="col-4">
-                <div class="col"><span style="font-weight: bold">Worker:</span> {{$worker->firstname}} {{$worker->lastname}}</div>
-            </div>
-            <div class="col-4">
-                <div class="col"><sapn style="font-weight: bold">Total count:</sapn>{{$datas->total()}}</div>
-            </div>
-
-        </div>
-    </h4>
-
+    @include('layouts.worker-by-category-table', ['tableName' => 'Composition'])
 
     <div class="d-flex justify-content-end">
         <div class="col-6" style="border: 1px solid #a71f1f; padding: 20px 30px; border-radius: 10px; margin: 20px 0;">
