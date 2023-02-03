@@ -100,6 +100,8 @@ class WeatherService
 
         $data = curl_exec($curl);
 
+        dd(curl_getinfo($curl, CURLINFO_SIZE_DOWNLOAD));
+
         return $data;
     }
 
